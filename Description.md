@@ -14,7 +14,7 @@ To complete this task, these 3rd party APIs can be used:
 
 As a **user running the application**\
 I can **view a list of the latest quotes in a user submitted cryptocurrency
-code (e.g. BTC)\
+code (e.g. BTC)**\
 So that **I know what the exchange rate is for every currency**
 
 ## Acceptance Criteria
