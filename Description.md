@@ -7,14 +7,14 @@ application should then display its current quote in the following currencies:
  * AUD
 
 To complete this task, these 3rd party APIs can be used:
- * [http://exchangeratesapi.io/](http://exchangeratesapi.io/)
+ * [http://exchangeratesapi.io](http://exchangeratesapi.io)
  * [https://coinmarketcap.com/api](https://coinmarketcap.com/api) (free version)
 
 # User Story
 
-As a **user running the application**
+As a **user running the application**\
 I can **view a list of the latest quotes in a user submitted cryptocurrency
-code (e.g. BTC)**
+code (e.g. BTC)\
 So that **I know what the exchange rate is for every currency**
 
 ## Acceptance Criteria
