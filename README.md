@@ -1,5 +1,7 @@
 # CryptoExchangeRates
 
+![Build solution](https://github.com/rmilovic90/crypto-exchange-rates/workflows/Build%20solution/badge.svg)
+
 A simple application which allows users to see the latest quotes for a
 given cryptocurrency.
 
