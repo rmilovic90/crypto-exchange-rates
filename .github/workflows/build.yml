@@ -3,10 +3,11 @@ name: Build solution
 on: [push]
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
+  build_and_test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
     steps:
     - uses: actions/checkout@v2
     - name: Configure .NET Core version
