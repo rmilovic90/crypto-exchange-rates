@@ -7,7 +7,7 @@ using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace CryptoExchangeRates.Quotes.UseCases
+namespace CryptoExchangeRates.Quotes.UseCases.GetCurrentQuotesForCryptocurrencyUseCase
 {
     public sealed class GetCurrentQuotesForCryptocurrencyTests
     {

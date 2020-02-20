@@ -2,7 +2,7 @@
 using CryptoExchangeRates.Quotes.Gateways;
 using CryptoExchangeRates.Quotes.Models;
 
-namespace CryptoExchangeRates.Quotes.UseCases
+namespace CryptoExchangeRates.Quotes.UseCases.GetCurrentQuotesForCryptocurrencyUseCase
 {
     internal sealed class GetCurrentQuotesForCryptocurrency : IGetCurrentQuotesForCryptocurrency
     {
@@ -23,13 +23,5 @@ namespace CryptoExchangeRates.Quotes.UseCases
 
             return CryptocurrencyQuotesResponse.From(baseCurrencyCode, quotes);
         }
-    }
-
-    public sealed class GetCurrentQuotesForCryptocurrencyFactory
-    {
-        internal GetCurrentQuotesForCryptocurrencyFactory() { }
-
-        public IGetCurrentQuotesForCryptocurrency Create(IExchangeRatesService exchangeRatesService) =>
-            new GetCurrentQuotesForCryptocurrency(exchangeRatesService);
     }
 }

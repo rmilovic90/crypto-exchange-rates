@@ -1,4 +1,6 @@
-﻿namespace CryptoExchangeRates.Quotes.UseCases
+﻿using CryptoExchangeRates.Quotes.UseCases.GetCurrentQuotesForCryptocurrencyUseCase;
+
+namespace CryptoExchangeRates.Quotes.UseCases
 {
     public sealed class UseCasesFactory
     {
