@@ -7,7 +7,7 @@ namespace CryptoExchangeRates.Quotes.Models
         public static CurrencyCode Of(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
-                throw new ArgumentException($"{nameof(CurrencyCode)} {nameof(value)} must not be blank", nameof(value));
+                throw new DomainException($"{nameof(CurrencyCode)} {nameof(value)} must not be blank.");
 
             return new CurrencyCode(value.ToUpper());
         }
