@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using CryptoExchangeRates.Quotes.Gateways;
 
-namespace CryptoExchangeRates.Quotes.Infrastructure
+namespace CryptoExchangeRates.Quotes.Infrastructure.ExchangeRatesService
 {
     public sealed class ExchangeRatesServiceFactory
     {

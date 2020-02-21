@@ -5,7 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using CryptoExchangeRates.Quotes.Models;
 
-namespace CryptoExchangeRates.Quotes.Infrastructure
+namespace CryptoExchangeRates.Quotes.Infrastructure.ExchangeRatesService
 {
     internal static class CoinMarketCapExchangeRatesWebServiceQuoteCurrencyFactory
     {

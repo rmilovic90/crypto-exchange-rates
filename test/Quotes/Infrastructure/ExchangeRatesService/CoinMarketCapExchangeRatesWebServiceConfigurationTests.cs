@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Xunit;
 
-namespace CryptoExchangeRates.Quotes.Infrastructure
+namespace CryptoExchangeRates.Quotes.Infrastructure.ExchangeRatesService
 {
     public sealed class CoinMarketCapExchangeRatesWebServiceConfigurationTests
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CryptoExchangeRates.Quotes.Infrastructure
+namespace CryptoExchangeRates.Quotes.Infrastructure.ExchangeRatesService
 {
     public sealed class CoinMarketCapExchangeRatesWebServiceConfiguration
     {

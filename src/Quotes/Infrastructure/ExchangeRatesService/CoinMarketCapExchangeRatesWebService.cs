@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using CryptoExchangeRates.Quotes.Gateways;
 using CryptoExchangeRates.Quotes.Models;
 
-using static CryptoExchangeRates.Quotes.Infrastructure.CoinMarketCapExchangeRatesWebServiceQuoteCurrencyFactory;
+using static CryptoExchangeRates.Quotes.Infrastructure.ExchangeRatesService.CoinMarketCapExchangeRatesWebServiceQuoteCurrencyFactory;
 
-namespace CryptoExchangeRates.Quotes.Infrastructure
+namespace CryptoExchangeRates.Quotes.Infrastructure.ExchangeRatesService
 {
     internal sealed class CoinMarketCapExchangeRatesWebService : IExchangeRatesService
     {

@@ -15,7 +15,7 @@ using Xunit;
 using static CryptoExchangeRates.Quotes.CurrencyCodes;
 using static CryptoExchangeRates.Quotes.SampleCryptocurrencyExchangeRates;
 
-namespace CryptoExchangeRates.Quotes.Infrastructure
+namespace CryptoExchangeRates.Quotes.Infrastructure.ExchangeRatesService
 {
     public sealed class CoinMarketCapExchangeRatesWebServiceTests : IDisposable
     {
