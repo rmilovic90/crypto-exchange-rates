@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CryptoExchangeRates.Quotes.Gateways;
 using CryptoExchangeRates.Quotes.Models;
 using FluentAssertions;
@@ -27,13 +28,13 @@ namespace CryptoExchangeRates.Quotes.UseCases.GetCurrentQuotesForCryptocurrencyU
         [Fact]
         public void Forbids_use_of_an_absent_request()
         {
-            Action executeGetCurrentQuotesForCryptocurrency = () => _useCase.Execute(null);
+            Func<Task> executeGetCurrentQuotesForCryptocurrency = () => _useCase.Execute(null);
 
             executeGetCurrentQuotesForCryptocurrency.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Fact]
-        public void Returns_current_quotes_for_a_given_cryptocurrency_code()
+        public async Task Returns_current_quotes_for_a_given_cryptocurrency_code()
         {
             var request = new CryptocurrencyQuotesRequest { CryptocurrencyCode = BTC };
             var expectedResponse = new CryptocurrencyQuotesResponse
@@ -49,14 +50,15 @@ namespace CryptoExchangeRates.Quotes.UseCases.GetCurrentQuotesForCryptocurrencyU
 
             _fakeExchangeRatesService.Setup(service =>
                     service.GetQuotesFor(CurrencyCode.Of(BTC)))
-                .Returns(QuoteCurrenciesOf(
-                    (USD, BTC_to_USD),
-                    (EUR, BTC_to_EUR),
-                    (BRL, BTC_to_BRL),
-                    (GBP, BTC_to_GBP),
-                    (AUD, BTC_to_AUD)));
+                .ReturnsAsync(
+                    QuoteCurrenciesOf(
+                        (USD, BTC_to_USD),
+                        (EUR, BTC_to_EUR),
+                        (BRL, BTC_to_BRL),
+                        (GBP, BTC_to_GBP),
+                        (AUD, BTC_to_AUD)));
 
-            var response = _useCase.Execute(request);
+            var response = await _useCase.Execute(request);
 
             response.Should().BeEquivalentTo(expectedResponse);
         }

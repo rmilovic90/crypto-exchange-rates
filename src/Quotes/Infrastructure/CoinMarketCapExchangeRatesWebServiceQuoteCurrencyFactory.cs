@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 using CryptoExchangeRates.Quotes.Models;
 
 namespace CryptoExchangeRates.Quotes.Infrastructure
@@ -11,7 +12,7 @@ namespace CryptoExchangeRates.Quotes.Infrastructure
         private const string QuotesPropertyName = "quote";
         private const string QuoteCurrencyCrossRatePropertyName = "price";
 
-        public static QuoteCurrency CreateQuoteCurrencyFromGetLatestCryptocurrencyQuotesResponse(
+        public static async Task<QuoteCurrency> CreateQuoteCurrencyFromGetLatestCryptocurrencyQuotesResponse(
             HttpResponseMessage response)
         {
             if (response is null)
@@ -19,15 +20,16 @@ namespace CryptoExchangeRates.Quotes.Infrastructure
 
             response.EnsureSuccessStatusCode();
 
-            var jsonText = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-            var jsonReader = new Utf8JsonReader(Encoding.UTF8.GetBytes(jsonText), isFinalBlock: true, state: default);
+            var jsonText = await response.Content.ReadAsStringAsync();
 
-            return CreateQuoteCurrencyFromGetLatestCryptocurrencyQuotesResponseJsonContent(jsonReader);
+            return CreateQuoteCurrencyFromGetLatestCryptocurrencyQuotesResponseJsonContent(jsonText);
         }
 
         private static QuoteCurrency CreateQuoteCurrencyFromGetLatestCryptocurrencyQuotesResponseJsonContent(
-            Utf8JsonReader jsonReader)
+            string jsonText)
         {
+            var jsonReader = new Utf8JsonReader(Encoding.UTF8.GetBytes(jsonText), isFinalBlock: true, state: default);
+
             CurrencyCode currencyCode = null;
             CurrencyExchangeRate crossRate = null;
 

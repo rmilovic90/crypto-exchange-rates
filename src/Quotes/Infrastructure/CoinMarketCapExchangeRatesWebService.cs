@@ -33,18 +33,17 @@ namespace CryptoExchangeRates.Quotes.Infrastructure
             _configuration.Validate();
         }
 
-        public IReadOnlyList<QuoteCurrency> GetQuotesFor(CurrencyCode baseCryptocurrencyCode)
+        public async Task<IReadOnlyList<QuoteCurrency>> GetQuotesFor(CurrencyCode baseCryptocurrencyCode)
         {
             if (baseCryptocurrencyCode is null)
                 throw new ArgumentNullException(nameof(baseCryptocurrencyCode));
 
             var httpClient = CreateHttpClient();
 
-            var responses = Task.WhenAll(
-                PrepareGetLatestCryptocurrencyQuotesRequests(baseCryptocurrencyCode, httpClient)).GetAwaiter().GetResult();
+            var responses = await ExecuteGetLatestCryptocurrencyQuotesRequests(
+                baseCryptocurrencyCode, httpClient);
 
-            return responses.Select(CreateQuoteCurrencyFromGetLatestCryptocurrencyQuotesResponse)
-                .ToList().AsReadOnly();
+            return await CreateQuoteCurrenciesFromGetLatestCryptocurrencyQuotesResponses(responses);
         }
 
         private HttpClient CreateHttpClient()
@@ -73,6 +72,10 @@ namespace CryptoExchangeRates.Quotes.Infrastructure
             httpClient.DefaultRequestHeaders.Accept.Add(JsonMediaTypeHeaderValue);
         }
 
+        private Task<HttpResponseMessage[]> ExecuteGetLatestCryptocurrencyQuotesRequests(
+            CurrencyCode baseCryptocurrencyCode, HttpClient httpClient) =>
+                Task.WhenAll(PrepareGetLatestCryptocurrencyQuotesRequests(baseCryptocurrencyCode, httpClient));
+
         private IEnumerable<Task<HttpResponseMessage>> PrepareGetLatestCryptocurrencyQuotesRequests(
             CurrencyCode baseCryptocurrencyCode, HttpClient httpClient) =>
                 SupportedQuoteCurrencyCodes.Select(code => httpClient.GetAsync(
@@ -87,5 +90,14 @@ namespace CryptoExchangeRates.Quotes.Infrastructure
                         GetLatestCryptocurrencyQuotesRequestUrlPathTemplate,
                         baseCryptocurrencyCode,
                         quoteCurrencyCode));
+
+        private async Task<IReadOnlyList<QuoteCurrency>> CreateQuoteCurrenciesFromGetLatestCryptocurrencyQuotesResponses(
+            IEnumerable<HttpResponseMessage> responses)
+        {
+            var quoteCurrencies = await Task.WhenAll(responses.Select(
+                async response => await CreateQuoteCurrencyFromGetLatestCryptocurrencyQuotesResponse(response)));
+
+            return quoteCurrencies.ToList().AsReadOnly();
+        }
     }
 }

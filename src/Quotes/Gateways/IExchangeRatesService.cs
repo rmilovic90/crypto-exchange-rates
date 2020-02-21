@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using CryptoExchangeRates.Quotes.Models;
 
 namespace CryptoExchangeRates.Quotes.Gateways
 {
     public interface IExchangeRatesService
     {
-        IReadOnlyList<QuoteCurrency> GetQuotesFor(CurrencyCode baseCryptocurrencyCode);
+        Task<IReadOnlyList<QuoteCurrency>> GetQuotesFor(CurrencyCode baseCryptocurrencyCode);
     }
 }

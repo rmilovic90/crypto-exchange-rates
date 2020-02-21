@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using CryptoExchangeRates.Quotes.Gateways;
 using CryptoExchangeRates.Quotes.Models;
 using FluentAssertions;
@@ -46,17 +47,17 @@ namespace CryptoExchangeRates.Quotes.Infrastructure
         [Fact]
         public void Forbids_use_of_an_absent_base_cryptocurrency_code_when_returning_quotes()
         {
-            Action executeGetQuotesForBaseCryptocurrencyCode = () => _exchangeRatesService.GetQuotesFor(null);
+            Func<Task> executeGetQuotesForBaseCryptocurrencyCode = () => _exchangeRatesService.GetQuotesFor(null);
 
             executeGetQuotesForBaseCryptocurrencyCode.Should().ThrowExactly<ArgumentNullException>();
         }
 
         [Fact]
-        public void Sets_given_cryptocurrency_code_in_URL_of_get_latest_cryptocurrency_quotes_requests()
+        public async Task Sets_given_cryptocurrency_code_in_URL_of_get_latest_cryptocurrency_quotes_requests()
         {
             ConfigureGetLatestCryptocurrencyQuotesRequestsToRespondSuccessfully();
 
-            _exchangeRatesService.GetQuotesFor(CurrencyCode.Of(BTC));
+            await _exchangeRatesService.GetQuotesFor(CurrencyCode.Of(BTC));
 
             var foundRequests = _mockServer.FindLogEntries(
                 Request.Create()
@@ -68,11 +69,11 @@ namespace CryptoExchangeRates.Quotes.Infrastructure
         }
 
         [Fact]
-        public void Includes_specific_quote_currency_codes_in_URL_of_get_latest_cryptocurrency_quotes_requests()
+        public async Task Includes_specific_quote_currency_codes_in_URL_of_get_latest_cryptocurrency_quotes_requests()
         {
             ConfigureGetLatestCryptocurrencyQuotesRequestsToRespondSuccessfully();
 
-            _exchangeRatesService.GetQuotesFor(CurrencyCode.Of(BTC));
+            await _exchangeRatesService.GetQuotesFor(CurrencyCode.Of(BTC));
 
             var foundLatestQuotesForBitcoinToUsDollarRequests = _mockServer.FindLogEntries(
                 Request.Create()
@@ -108,11 +109,11 @@ namespace CryptoExchangeRates.Quotes.Infrastructure
         }
 
         [Fact]
-        public void Sets_authentication_header_with_configured_api_key_for_get_latest_cryptocurrency_quotes_request()
+        public async Task Sets_authentication_header_with_configured_api_key_for_get_latest_cryptocurrency_quotes_request()
         {
             ConfigureGetLatestCryptocurrencyQuotesRequestsToRespondSuccessfully();
 
-            _exchangeRatesService.GetQuotesFor(CurrencyCode.Of(BTC));
+            await _exchangeRatesService.GetQuotesFor(CurrencyCode.Of(BTC));
 
             var foundRequests = _mockServer.FindLogEntries(
                 Request.Create()
@@ -128,7 +129,7 @@ namespace CryptoExchangeRates.Quotes.Infrastructure
         {
             ConfigureGetLatestCryptocurrencyQuotesRequestsToRespondWithBadRequestStatus();
 
-            Action executeGetQuotesForBaseCryptocurrencyCode = () => _exchangeRatesService.GetQuotesFor(CurrencyCode.Of(BTC));
+            Func<Task> executeGetQuotesForBaseCryptocurrencyCode = () => _exchangeRatesService.GetQuotesFor(CurrencyCode.Of(BTC));
 
             executeGetQuotesForBaseCryptocurrencyCode.Should().ThrowExactly<HttpRequestException>();
         }
@@ -138,7 +139,7 @@ namespace CryptoExchangeRates.Quotes.Infrastructure
         {
             ConfigureGetLatestCryptocurrencyQuotesRequestsToRespondWithUnauthorizedStatus();
 
-            Action executeGetQuotesForBaseCryptocurrencyCode = () => _exchangeRatesService.GetQuotesFor(CurrencyCode.Of(BTC));
+            Func<Task> executeGetQuotesForBaseCryptocurrencyCode = () => _exchangeRatesService.GetQuotesFor(CurrencyCode.Of(BTC));
 
             executeGetQuotesForBaseCryptocurrencyCode.Should().ThrowExactly<HttpRequestException>();
         }
@@ -148,7 +149,7 @@ namespace CryptoExchangeRates.Quotes.Infrastructure
         {
             ConfigureGetLatestCryptocurrencyQuotesRequestsToRespondWithForbiddenStatus();
 
-            Action executeGetQuotesForBaseCryptocurrencyCode = () => _exchangeRatesService.GetQuotesFor(CurrencyCode.Of(BTC));
+            Func<Task> executeGetQuotesForBaseCryptocurrencyCode = () => _exchangeRatesService.GetQuotesFor(CurrencyCode.Of(BTC));
 
             executeGetQuotesForBaseCryptocurrencyCode.Should().ThrowExactly<HttpRequestException>();
         }
@@ -158,7 +159,7 @@ namespace CryptoExchangeRates.Quotes.Infrastructure
         {
             ConfigureGetLatestCryptocurrencyQuotesRequestsToRespondWithTooManyRequestsStatus();
 
-            Action executeGetQuotesForBaseCryptocurrencyCode = () => _exchangeRatesService.GetQuotesFor(CurrencyCode.Of(BTC));
+            Func<Task> executeGetQuotesForBaseCryptocurrencyCode = () => _exchangeRatesService.GetQuotesFor(CurrencyCode.Of(BTC));
 
             executeGetQuotesForBaseCryptocurrencyCode.Should().ThrowExactly<HttpRequestException>();
         }
@@ -168,13 +169,13 @@ namespace CryptoExchangeRates.Quotes.Infrastructure
         {
             ConfigureGetLatestCryptocurrencyQuotesRequestsToRespondWithIntervalServerErrorStatus();
 
-            Action executeGetQuotesForBaseCryptocurrencyCode = () => _exchangeRatesService.GetQuotesFor(CurrencyCode.Of(BTC));
+            Func<Task> executeGetQuotesForBaseCryptocurrencyCode = () => _exchangeRatesService.GetQuotesFor(CurrencyCode.Of(BTC));
 
             executeGetQuotesForBaseCryptocurrencyCode.Should().ThrowExactly<HttpRequestException>();
         }
 
         [Fact]
-        public void Returns_quotes_for_base_cryptocurrency_code_when_get_latest_cryptocurrency_quotes_request_responds_with_ok_status()
+        public async Task Returns_quotes_for_base_cryptocurrency_code_when_get_latest_cryptocurrency_quotes_request_responds_with_ok_status()
         {
             ConfigureGetLatestCryptocurrencyQuotesRequestsToRespondSuccessfully();
 
@@ -185,7 +186,7 @@ namespace CryptoExchangeRates.Quotes.Infrastructure
                 (GBP, BTC_to_GBP),
                 (AUD, BTC_to_AUD));
 
-            var quotes = _exchangeRatesService.GetQuotesFor(CurrencyCode.Of(BTC));
+            var quotes = await _exchangeRatesService.GetQuotesFor(CurrencyCode.Of(BTC));
 
             quotes.Should().BeEquivalentTo(expectedQuotes);
         }

@@ -1,7 +1,9 @@
-﻿namespace CryptoExchangeRates.Quotes.UseCases.GetCurrentQuotesForCryptocurrencyUseCase
+﻿using System.Threading.Tasks;
+
+namespace CryptoExchangeRates.Quotes.UseCases.GetCurrentQuotesForCryptocurrencyUseCase
 {
     public interface IGetCurrentQuotesForCryptocurrency
     {
-        CryptocurrencyQuotesResponse Execute(CryptocurrencyQuotesRequest request);
+        Task<CryptocurrencyQuotesResponse> Execute(CryptocurrencyQuotesRequest request);
     }
 }
