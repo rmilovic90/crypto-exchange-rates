@@ -21,7 +21,7 @@ namespace CryptoExchangeRates.Quotes.Infrastructure
 
             Action validateConfiguration = () => configuration.Validate();
 
-            validateConfiguration.Should().ThrowExactly<InvalidConfigurationException>();
+            validateConfiguration.Should().ThrowExactly<InvalidOperationException>();
         }
 
         [Theory]
@@ -38,7 +38,7 @@ namespace CryptoExchangeRates.Quotes.Infrastructure
 
             Action validateConfiguration = () => configuration.Validate();
 
-            validateConfiguration.Should().ThrowExactly<InvalidConfigurationException>();
+            validateConfiguration.Should().ThrowExactly<InvalidOperationException>();
         }
 
         [Fact]

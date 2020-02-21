@@ -10,10 +10,10 @@ namespace CryptoExchangeRates.Quotes.Infrastructure
         public void Validate()
         {
             if (BaseUrl is null)
-                throw new InvalidConfigurationException(
+                throw new InvalidOperationException(
                     $"{nameof(CoinMarketCapExchangeRatesWebServiceConfiguration)} {nameof(BaseUrl)} is required");
             if (string.IsNullOrWhiteSpace(ApiKey))
-                throw new InvalidConfigurationException(
+                throw new InvalidOperationException(
                     $"{nameof(CoinMarketCapExchangeRatesWebServiceConfiguration)} {nameof(ApiKey)} can't be blank");
         }
     }
