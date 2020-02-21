@@ -5,48 +5,51 @@ using CryptoExchangeRates.Quotes.Models;
 using FluentAssertions;
 using Xunit;
 
+using static CryptoExchangeRates.Quotes.CurrencyCodes;
+using static CryptoExchangeRates.Quotes.QuoteCurrenciesBuilder;
+using static CryptoExchangeRates.Quotes.SampleCryptocurrencyExchangeRates;
+
 namespace CryptoExchangeRates.Quotes.UseCases.GetCurrentQuotesForCryptocurrencyUseCase
 {
     public sealed class CryptocurrencyQuotesResponseTests
     {
         [Fact]
-        public void Requires_base_currency_code_when_created_from_base_currency_code_and_quotes()
+        public void Requires_base_cryptocurrency_code_when_created_from_base_cryptocurrency_code_and_quotes()
         {
-            Action createCryptocurrencyQuotesResponseFromBaseCurrencyCodeAndQuotes = () =>
+            Action createCryptocurrencyQuotesResponseFromBaseCryptocurrencyCodeAndQuotes = () =>
                 CryptocurrencyQuotesResponse.From(null, Enumerable.Empty<QuoteCurrency>());
 
-            createCryptocurrencyQuotesResponseFromBaseCurrencyCodeAndQuotes.Should()
+            createCryptocurrencyQuotesResponseFromBaseCryptocurrencyCodeAndQuotes.Should()
                 .ThrowExactly<ArgumentNullException>()
-                    .Which.ParamName.Should().Be("baseCurrencyCode");
+                    .Which.ParamName.Should().Be("baseCryptocurrencyCode");
         }
 
         [Fact]
-        public void Requires_quotes_when_created_from_base_currency_code_and_quotes()
+        public void Requires_quotes_when_created_from_base_cryptocurrency_code_and_quotes()
         {
-            Action createCryptocurrencyQuotesResponseFromBaseCurrencyCodeAndQuotes = () =>
-                CryptocurrencyQuotesResponse.From(CurrencyCode.Of("BTC"), null);
+            Action createCryptocurrencyQuotesResponseFromBaseCryptocurrencyCodeAndQuotes = () =>
+                CryptocurrencyQuotesResponse.From(CurrencyCode.Of(BTC), null);
 
-            createCryptocurrencyQuotesResponseFromBaseCurrencyCodeAndQuotes.Should()
+            createCryptocurrencyQuotesResponseFromBaseCryptocurrencyCodeAndQuotes.Should()
                 .ThrowExactly<ArgumentNullException>()
                     .Which.ParamName.Should().Be("quotes");
         }
 
         [Fact]
-        public void Is_successfully_created_from_base_currency_code_and_quotes_when_both_values_are_present()
+        public void Is_successfully_created_from_base_cryptocurrency_code_and_quotes_when_both_values_are_present()
         {
             var expectedCryptocurrencyQuotesResponse = new CryptocurrencyQuotesResponse
             {
-                BaseCurrencyCode = "BTC",
+                BaseCryptocurrencyCode = BTC,
                 Quotes = new List<QuoteCurrencyDetails>
                 {
-                    new QuoteCurrencyDetails { Code = "USD", Rate = 10128.54M }
+                    new QuoteCurrencyDetails { Code = USD, ExchangeRate = BTC_to_USD }
                 }
             };
 
             var cryptocurrencyQuotesResponse = CryptocurrencyQuotesResponse.From(
-                CurrencyCode.Of("BTC"),
-                Enumerable.Empty<QuoteCurrency>().Append(
-                    QuoteCurrency.Of(CurrencyCode.Of("USD"), CurrencyExchangeRate.Of(10128.54M))));
+                CurrencyCode.Of(BTC),
+                QuoteCurrenciesOf((USD, BTC_to_USD)));
 
             cryptocurrencyQuotesResponse.Should().BeEquivalentTo(expectedCryptocurrencyQuotesResponse);
         }

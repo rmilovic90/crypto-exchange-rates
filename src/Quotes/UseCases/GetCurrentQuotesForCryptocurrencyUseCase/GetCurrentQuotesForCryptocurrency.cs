@@ -18,10 +18,10 @@ namespace CryptoExchangeRates.Quotes.UseCases.GetCurrentQuotesForCryptocurrencyU
             if (request is null)
                 throw new ArgumentNullException(nameof(request));
 
-            var baseCurrencyCode = CurrencyCode.Of(request.CryptocurrencyCode);
-            var quotes = _exchangeRatesService.GetQuotesFor(baseCurrencyCode);
+            var baseCryptocurrencyCode = CurrencyCode.Of(request.CryptocurrencyCode);
+            var quotes = _exchangeRatesService.GetQuotesFor(baseCryptocurrencyCode);
 
-            return CryptocurrencyQuotesResponse.From(baseCurrencyCode, quotes);
+            return CryptocurrencyQuotesResponse.From(baseCryptocurrencyCode, quotes);
         }
     }
 }

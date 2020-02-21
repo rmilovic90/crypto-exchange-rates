@@ -8,12 +8,12 @@ namespace CryptoExchangeRates.Quotes.UseCases.GetCurrentQuotesForCryptocurrencyU
     public sealed class CryptocurrencyQuotesResponse
     {
         public static CryptocurrencyQuotesResponse From(
-            CurrencyCode baseCurrencyCode, IEnumerable<QuoteCurrency> quotes)
+            CurrencyCode baseCryptocurrencyCode, IEnumerable<QuoteCurrency> quotes)
         {
-            if (baseCurrencyCode is null)
+            if (baseCryptocurrencyCode is null)
                 throw new ArgumentNullException(
-                    nameof(baseCurrencyCode),
-                    $"{nameof(CryptocurrencyQuotesResponse)} {nameof(baseCurrencyCode)} is required");
+                    nameof(baseCryptocurrencyCode),
+                    $"{nameof(CryptocurrencyQuotesResponse)} {nameof(baseCryptocurrencyCode)} is required");
             if (quotes is null)
                 throw new ArgumentNullException(
                     nameof(quotes),
@@ -21,23 +21,23 @@ namespace CryptoExchangeRates.Quotes.UseCases.GetCurrentQuotesForCryptocurrencyU
 
             return new CryptocurrencyQuotesResponse
             {
-                BaseCurrencyCode = baseCurrencyCode,
+                BaseCryptocurrencyCode = baseCryptocurrencyCode,
                 Quotes = quotes.Select(quote =>
                     new QuoteCurrencyDetails
                     {
                         Code = quote.Code,
-                        Rate = quote.Rate
+                        ExchangeRate = quote.ExchangeRate
                     }).ToList()
             };
         }
 
-        public string BaseCurrencyCode { get; set; }
+        public string BaseCryptocurrencyCode { get; set; }
         public List<QuoteCurrencyDetails> Quotes { get; set; }
     }
 
     public sealed class QuoteCurrencyDetails
     {
         public string Code { get; set; }
-        public decimal Rate { get; set; }
+        public decimal ExchangeRate { get; set; }
     }
 }

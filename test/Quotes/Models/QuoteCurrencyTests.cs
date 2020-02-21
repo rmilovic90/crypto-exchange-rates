@@ -2,6 +2,9 @@
 using FluentAssertions;
 using Xunit;
 
+using static CryptoExchangeRates.Quotes.CurrencyCodes;
+using static CryptoExchangeRates.Quotes.SampleCryptocurrencyExchangeRates;
+
 namespace CryptoExchangeRates.Quotes.Models
 {
     public sealed class QuoteCurrencyTests
@@ -10,7 +13,7 @@ namespace CryptoExchangeRates.Quotes.Models
         public void Requires_code()
         {
             Action createQuoteCurrency = () =>
-                QuoteCurrency.Of(null, CurrencyExchangeRate.Of(10128.54M));
+                QuoteCurrency.Of(null, CurrencyExchangeRate.Of(BTC_to_USD));
 
             createQuoteCurrency.Should().ThrowExactly<ArgumentNullException>()
                 .Which.ParamName.Should().Be("code");
@@ -20,17 +23,17 @@ namespace CryptoExchangeRates.Quotes.Models
         public void Requires_rate()
         {
             Action createQuoteCurrency = () =>
-                QuoteCurrency.Of(CurrencyCode.Of("USD"), null);
+                QuoteCurrency.Of(CurrencyCode.Of(USD), null);
 
             createQuoteCurrency.Should().ThrowExactly<ArgumentNullException>()
-                .Which.ParamName.Should().Be("rate");
+                .Which.ParamName.Should().Be("exchangeRate");
         }
 
         [Fact]
-        public void Is_successfully_created_when_both_code_and_rate_are_provided()
+        public void Is_successfully_created_when_both_code_and_exchange_rate_are_provided()
         {
             Action createQuoteCurrency = () =>
-                QuoteCurrency.Of(CurrencyCode.Of("USD"), CurrencyExchangeRate.Of(10128.54M));
+                QuoteCurrency.Of(CurrencyCode.Of(USD), CurrencyExchangeRate.Of(BTC_to_USD));
 
             createQuoteCurrency.Should().NotThrow();
         }

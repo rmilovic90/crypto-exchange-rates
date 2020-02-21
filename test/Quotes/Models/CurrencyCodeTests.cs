@@ -2,6 +2,8 @@
 using FluentAssertions;
 using Xunit;
 
+using static CryptoExchangeRates.Quotes.CurrencyCodes;
+
 namespace CryptoExchangeRates.Quotes.Models
 {
     public sealed class CurrencyCodeTests
@@ -20,7 +22,7 @@ namespace CryptoExchangeRates.Quotes.Models
         [Fact]
         public void Is_successfully_created_from_a_non_blank_value()
         {
-            Action createCurrencyCode = () => CurrencyCode.Of("BTC");
+            Action createCurrencyCode = () => CurrencyCode.Of(BTC);
 
             createCurrencyCode.Should().NotThrow();
         }
@@ -30,7 +32,7 @@ namespace CryptoExchangeRates.Quotes.Models
         {
             string currencyCodeValue = CurrencyCode.Of("bTc");
 
-            currencyCodeValue.Should().Be("BTC");
+            currencyCodeValue.Should().Be(BTC);
         }
     }
 }

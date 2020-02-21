@@ -5,6 +5,6 @@ namespace CryptoExchangeRates.Quotes.Gateways
 {
     public interface IExchangeRatesService
     {
-        IReadOnlyList<QuoteCurrency> GetQuotesFor(CurrencyCode baseCurrencyCode);
+        IReadOnlyList<QuoteCurrency> GetQuotesFor(CurrencyCode baseCryptocurrencyCode);
     }
 }

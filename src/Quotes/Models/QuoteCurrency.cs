@@ -4,24 +4,24 @@ namespace CryptoExchangeRates.Quotes.Models
 {
     public sealed class QuoteCurrency
     {
-        public static QuoteCurrency Of(CurrencyCode code, CurrencyExchangeRate rate)
+        public static QuoteCurrency Of(CurrencyCode code, CurrencyExchangeRate exchangeRate)
         {
             if (code is null)
                 throw new ArgumentNullException(nameof(code), $"{nameof(QuoteCurrency)} {nameof(code)} is required");
-            if (rate is null)
-                throw new ArgumentNullException(nameof(rate), $"{nameof(QuoteCurrency)} {nameof(rate)} is required");
+            if (exchangeRate is null)
+                throw new ArgumentNullException(nameof(exchangeRate), $"{nameof(QuoteCurrency)} {nameof(exchangeRate)} is required");
 
-            return new QuoteCurrency(code, rate);
+            return new QuoteCurrency(code, exchangeRate);
         }
 
-        private QuoteCurrency(CurrencyCode code, CurrencyExchangeRate rate)
+        private QuoteCurrency(CurrencyCode code, CurrencyExchangeRate exchangeRate)
         {
             Code = code;
-            Rate = rate;
+            ExchangeRate = exchangeRate;
         }
 
         public CurrencyCode Code { get; }
-        public CurrencyExchangeRate Rate { get; }
+        public CurrencyExchangeRate ExchangeRate { get; }
 
         public override bool Equals(object obj) =>
             ReferenceEquals(this, obj)
@@ -30,18 +30,18 @@ namespace CryptoExchangeRates.Quotes.Models
 
         private bool Equals(QuoteCurrency other) =>
             Code.Equals(other.Code)
-            && Rate.Equals(other.Rate);
+            && ExchangeRate.Equals(other.ExchangeRate);
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return (Code.GetHashCode() * 397) ^ Rate.GetHashCode();
+                return (Code.GetHashCode() * 397) ^ ExchangeRate.GetHashCode();
             }
         }
 
         public override string ToString() =>
-            $"{nameof(QuoteCurrency)} {{ {nameof(Code)}: {Code}, {nameof(Rate)}: {Rate} }}";
+            $"{nameof(QuoteCurrency)} {{ {nameof(Code)}: {Code}, {nameof(ExchangeRate)}: {ExchangeRate} }}";
 
         public static bool operator ==(QuoteCurrency left, QuoteCurrency right) => Equals(left, right);
 
