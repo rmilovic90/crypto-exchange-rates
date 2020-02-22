@@ -1,13 +1,19 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace CryptoExchangeRates.Quotes.Models
 {
     public sealed class CurrencyCode
     {
+        private const string ValidFormatPattern = "^[a-zA-Z]{3}$";
+
         public static CurrencyCode Of(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
                 throw new DomainException($"{nameof(CurrencyCode)} {nameof(value)} must not be blank.");
+
+            if (!Regex.IsMatch(value, ValidFormatPattern))
+                throw new DomainException($"{nameof(CurrencyCode)} {nameof(value)} must have valid format (3 letters).");
 
             return new CurrencyCode(value.ToUpper());
         }

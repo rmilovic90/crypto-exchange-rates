@@ -19,6 +19,18 @@ namespace CryptoExchangeRates.Quotes.Models
             createCurrencyCode.Should().ThrowExactly<DomainException>();
         }
 
+        [Theory]
+        [InlineData("123")]
+        [InlineData("1TC")]
+        [InlineData("BT$")]
+        [InlineData("BTC2")]
+        public void Forbids_improperly_formatted_value(string value)
+        {
+            Action createCurrencyCode = () => CurrencyCode.Of(value);
+
+            createCurrencyCode.Should().ThrowExactly<DomainException>();
+        }
+
         [Fact]
         public void Is_successfully_created_from_a_non_blank_value()
         {
