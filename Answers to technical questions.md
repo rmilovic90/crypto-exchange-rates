@@ -52,7 +52,7 @@ I think that it could emphasize more on the **domain logic** and not the **integ
   "age": 29,
   "favoriteQuote": "Give a man a fish and you feed him for a day; teach a man to fish and you feed him for a lifetime.",
   "professional": {
-    "occupation": "software enginner",
+    "occupation": "software engineer",
     "experienceInYears": 6,
     "values": [
       "bringing value to the business",
@@ -72,7 +72,7 @@ I think that it could emphasize more on the **domain logic** and not the **integ
     ],
     "interests": [
       "technology",
-      "software enginnering",
+      "software engineering",
       "building a business",
       "psychology",
       "philosophy",
