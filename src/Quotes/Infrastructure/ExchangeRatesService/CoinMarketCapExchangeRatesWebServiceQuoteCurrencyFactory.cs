@@ -12,6 +12,9 @@ namespace CryptoExchangeRates.Quotes.Infrastructure.ExchangeRatesService
         private const string QuotesPropertyName = "quote";
         private const string QuoteCurrencyCrossRatePropertyName = "price";
 
+        // NOTE: Parsing of the CoinMarketCap API cryptocurrency quotes response is done this way because
+        // JSON content has dynamic property names (based on quote currency code). I could not create the
+        // static type to deserialize it into.
         public static async Task<QuoteCurrency> CreateQuoteCurrencyFromGetLatestCryptocurrencyQuotesResponse(
             HttpResponseMessage response)
         {

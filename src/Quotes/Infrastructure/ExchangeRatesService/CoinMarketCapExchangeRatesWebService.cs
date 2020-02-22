@@ -72,6 +72,11 @@ namespace CryptoExchangeRates.Quotes.Infrastructure.ExchangeRatesService
             httpClient.DefaultRequestHeaders.Accept.Add(JsonMediaTypeHeaderValue);
         }
 
+        // NOTE: API calls are implemented in this way because free tier of CoinMarketCap API
+        // does not allow getting quotes for more than one currency from a base cryptocurrency
+        // in a single call. To work around this issue, the CoinMarketCap API is called 5 times
+        // in parallel (for every quoted currency: USD, EUR, BRL, GBP, AUD).
+        // Payed plans do not have this restriction.
         private Task<HttpResponseMessage[]> ExecuteGetLatestCryptocurrencyQuotesRequests(
             CurrencyCode baseCryptocurrencyCode, HttpClient httpClient) =>
                 Task.WhenAll(PrepareGetLatestCryptocurrencyQuotesRequests(baseCryptocurrencyCode, httpClient));
