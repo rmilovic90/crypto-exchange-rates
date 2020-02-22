@@ -14,15 +14,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{56A0F0DE-D2FD-4E9B-A93A-EF1BBA3D7B59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quotes", "src\Quotes\Quotes.csproj", "{4158E297-660E-47B1-B87F-321C6F187B45}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{0475636A-A762-467E-B82A-250BFF988809}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quotes", "src\Quotes\Quotes.csproj", "{4158E297-660E-47B1-B87F-321C6F187B45}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quotes.Tests", "test\Quotes\Quotes.Tests.csproj", "{A666FE0D-6715-412F-B7CA-B514FF06B85A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "src\WebApi\WebApi.csproj", "{792D145A-5755-4C9A-A326-34918C94372B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "test\WebApi\WebApi.csproj", "{060160CE-657B-4E93-AFA3-7294344B26F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.Tests", "test\WebApi\WebApi.Tests.csproj", "{060160CE-657B-4E93-AFA3-7294344B26F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
