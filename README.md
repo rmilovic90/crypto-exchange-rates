@@ -5,4 +5,7 @@
 A simple application which allows users to see the latest quotes for a
 given cryptocurrency.
 
-Requirements can be found [here](Description.md).
+Detailed requirements description can be found [here](Description.md).
+
+Technical requirements:
+ * [.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
