@@ -9,7 +9,7 @@ namespace CryptoExchangeRates.Quotes.Infrastructure.ExchangeRatesService
 
         public IExchangeRatesService CreateCoinMarketCapExchangeRatesWebService(
             IHttpClientFactory httpClientFactory,
-            CoinMarketCapExchangeRatesWebServiceConfiguration configuration) =>
+            CoinMarketCapWebServiceConfiguration configuration) =>
                 new CoinMarketCapExchangeRatesWebService(httpClientFactory, configuration);
     }
 }

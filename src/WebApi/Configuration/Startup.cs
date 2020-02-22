@@ -1,16 +1,12 @@
 using System;
-using System.IO;
-using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 
 namespace CryptoExchangeRates.WebApi.Configuration
 {
-    internal sealed class Startup
+    public sealed class Startup : StartupBase
     {
         private readonly IConfiguration _configuration;
 
@@ -19,53 +15,16 @@ namespace CryptoExchangeRates.WebApi.Configuration
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
-        public void ConfigureServices(IServiceCollection services)
+        protected override void ConfigureServicesCustom(IServiceCollection services)
         {
-            services.AddControllers()
-                .AddJsonOptions(options =>
-                {
-                    options.JsonSerializerOptions.IgnoreNullValues = true;
-                });
+            services.ConfigureSwagger();
 
-            services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc(
-                    "v1",
-                    new OpenApiInfo
-                    {
-                        Title = "Cryptocurrency Exchange Rates API",
-                        Description = "Web API for getting the latest cryptocurrency exchange rates.",
-                        Version = "v1"
-                    });
-
-                var xmlCommentsFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlCommentsFilePath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFileName);
-                options.IncludeXmlComments(xmlCommentsFilePath);
-            });
+            services.RegisterCustomServices(_configuration);
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        protected override void ConfigureCustom(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseSwagger(options =>
-            {
-                options.RouteTemplate = "api-docs/{documentName}/specification.json";
-            });
-            app.UseSwaggerUI(options =>
-            {
-                options.RoutePrefix = "api-docs";
-                options.SwaggerEndpoint("/api-docs/v1/specification.json", "Cryptocurrency Exchange Rates API V1");
-            });
-
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseSwaggerWithUI();
         }
     }
 }

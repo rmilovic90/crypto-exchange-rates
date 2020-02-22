@@ -35,7 +35,7 @@ namespace CryptoExchangeRates.Quotes.Infrastructure.ExchangeRatesService
         {
             _mockServer = WireMockServer.Start();
 
-            var configuration = new CoinMarketCapExchangeRatesWebServiceConfiguration
+            var configuration = new CoinMarketCapWebServiceConfiguration
             {
                 BaseUrl = new Uri(_mockServer.Urls.First()),
                 ApiKey = SampleApiKeyValue

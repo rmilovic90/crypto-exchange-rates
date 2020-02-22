@@ -22,11 +22,11 @@ namespace CryptoExchangeRates.Quotes.Infrastructure.ExchangeRatesService
         private static readonly string[] SupportedQuoteCurrencyCodes = { "USD", "EUR", "BRL", "GBP", "AUD" };
 
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly CoinMarketCapExchangeRatesWebServiceConfiguration _configuration;
+        private readonly CoinMarketCapWebServiceConfiguration _configuration;
 
         public CoinMarketCapExchangeRatesWebService(
             IHttpClientFactory httpClientFactory,
-            CoinMarketCapExchangeRatesWebServiceConfiguration configuration)
+            CoinMarketCapWebServiceConfiguration configuration)
         {
             _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
