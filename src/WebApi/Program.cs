@@ -1,3 +1,4 @@
+using CryptoExchangeRates.WebApi.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
