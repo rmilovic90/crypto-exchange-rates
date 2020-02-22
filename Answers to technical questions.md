@@ -12,8 +12,9 @@ best practices in terms of system design and architecture. The implementation is
  * Better **error handling**. Instead of throwing exceptions I would use the patterns from **railway-oriented programming** concept.
  * I would use the **strongly typed HttpClient** implementation for calling the **CoinMarketCap API** instead of **IHttpClientFactory** in **CoinMarketCapExchangeRatesWebService** as recommended in .NET Core documentation.
  * In order for the application to recover from **transient network errors**, I would like to add the **retry policy** to the **CoinMarketCapExchangeRatesWebService**. It can be achieved by applying the **decorator pattern** to the **CoinMarketCapExchangeRatesWebService** or, even better, use the **Microsoft.Extensions.Http.Polly** NuGet package which would allow me to configure retry policies on the **HttpClient** instances directly during the application startup.
-* In order to improve performance, I could **cache CoinMarketCap API cryptocurrency quotes response** in-memory since **CoinMarketCap API** refreshes their values every minute. I would implement caching by applying the **decorator pattern** to the **CoinMarketCapExchangeRatesWebService**.
-* **Supported quote currency codes** are currently hard-coded in **CoinMarketCapExchangeRatesWebService**. I would like to make this more flexible by **making supported quote currency codes configurable**.
+ * In order to improve performance, I could **cache CoinMarketCap API cryptocurrency quotes response** in-memory since **CoinMarketCap API** refreshes their values every minute. I would implement caching by applying the **decorator pattern** to the **CoinMarketCapExchangeRatesWebService**.
+ * **Supported quote currency codes** are currently hard-coded in **CoinMarketCapExchangeRatesWebService**. I would like to make this more flexible by **making supported quote currency codes configurable**.
+ * Better **handling of errors** from the **CoinMarketCap API**. Again, I would employ the use of patterns from **railway-oriented programming** concept.
 
 2. What was the most useful feature that was added to the latest version of your language of choice? Please include a snippet of code that shows how you've used it. 
 
