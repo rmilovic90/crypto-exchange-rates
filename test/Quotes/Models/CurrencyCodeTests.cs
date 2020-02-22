@@ -3,6 +3,7 @@ using FluentAssertions;
 using Xunit;
 
 using static CryptoExchangeRates.Quotes.CurrencyCodes;
+using static CryptoExchangeRates.Quotes.Models.DomainErrors;
 
 namespace CryptoExchangeRates.Quotes.Models
 {
@@ -16,7 +17,8 @@ namespace CryptoExchangeRates.Quotes.Models
         {
             Action createCurrencyCode = () => CurrencyCode.Of(value);
 
-            createCurrencyCode.Should().ThrowExactly<DomainException>();
+            createCurrencyCode.Should().ThrowExactly<DomainException>()
+                .Which.Error.Should().Be(MissingCurrencyCode);
         }
 
         [Theory]
@@ -28,7 +30,8 @@ namespace CryptoExchangeRates.Quotes.Models
         {
             Action createCurrencyCode = () => CurrencyCode.Of(value);
 
-            createCurrencyCode.Should().ThrowExactly<DomainException>();
+            createCurrencyCode.Should().ThrowExactly<DomainException>()
+                .Which.Error.Should().Be(CurrencyCodeInvalidFormat);
         }
 
         [Fact]

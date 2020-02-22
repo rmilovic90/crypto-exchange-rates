@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
 namespace CryptoExchangeRates.Quotes.Models
 {
@@ -7,8 +8,9 @@ namespace CryptoExchangeRates.Quotes.Models
         public static CurrencyExchangeRate Of(decimal value)
         {
             if (value <= decimal.Zero)
-                throw new DomainException(
-                    $"{nameof(CurrencyExchangeRate)} {nameof(value)} must be higher than {decimal.Zero}.");
+                throw new ArgumentException(
+                    $"{nameof(CurrencyExchangeRate)} {nameof(value)} must be higher than {decimal.Zero}.",
+                    nameof(value));
 
             return new CurrencyExchangeRate(value);
         }

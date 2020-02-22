@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
+using static CryptoExchangeRates.Quotes.Models.DomainErrors;
+
 namespace CryptoExchangeRates.Quotes.Models
 {
     public sealed class CurrencyCode
@@ -10,10 +12,13 @@ namespace CryptoExchangeRates.Quotes.Models
         public static CurrencyCode Of(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
-                throw new DomainException($"{nameof(CurrencyCode)} {nameof(value)} must not be blank.");
+                throw new DomainException(
+                    MissingCurrencyCode, $"{nameof(CurrencyCode)} {nameof(value)} must not be blank.");
 
             if (!Regex.IsMatch(value, ValidFormatPattern))
-                throw new DomainException($"{nameof(CurrencyCode)} {nameof(value)} must have valid format (3 letters).");
+                throw new DomainException(
+                    CurrencyCodeInvalidFormat,
+                    $"{nameof(CurrencyCode)} {nameof(value)} must have valid format (3 letters).");
 
             return new CurrencyCode(value.ToUpper());
         }

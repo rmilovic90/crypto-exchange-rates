@@ -1,13 +1,17 @@
-﻿namespace CryptoExchangeRates.Quotes.Models
+﻿using System;
+
+namespace CryptoExchangeRates.Quotes.Models
 {
     public sealed class QuoteCurrency
     {
         public static QuoteCurrency Of(CurrencyCode code, CurrencyExchangeRate exchangeRate)
         {
             if (code is null)
-                throw new DomainException($"{nameof(QuoteCurrency)} {nameof(code)} is required.");
+                throw new ArgumentException(
+                    $"{nameof(QuoteCurrency)} {nameof(code)} is required.", nameof(code));
             if (exchangeRate is null)
-                throw new DomainException($"{nameof(QuoteCurrency)} {nameof(exchangeRate)} is required.");
+                throw new ArgumentException(
+                    $"{nameof(QuoteCurrency)} {nameof(exchangeRate)} is required.", nameof(exchangeRate));
 
             return new QuoteCurrency(code, exchangeRate);
         }

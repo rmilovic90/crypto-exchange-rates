@@ -15,7 +15,7 @@ namespace CryptoExchangeRates.Quotes.Models
             Action createQuoteCurrency = () =>
                 QuoteCurrency.Of(null, CurrencyExchangeRate.Of(BTC_to_USD));
 
-            createQuoteCurrency.Should().ThrowExactly<DomainException>();
+            createQuoteCurrency.Should().ThrowExactly<ArgumentException>();
         }
 
         [Fact]
@@ -24,7 +24,7 @@ namespace CryptoExchangeRates.Quotes.Models
             Action createQuoteCurrency = () =>
                 QuoteCurrency.Of(CurrencyCode.Of(USD), null);
 
-            createQuoteCurrency.Should().ThrowExactly<DomainException>();
+            createQuoteCurrency.Should().ThrowExactly<ArgumentException>();
         }
 
         [Fact]

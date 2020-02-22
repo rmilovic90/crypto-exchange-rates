@@ -13,7 +13,7 @@ namespace CryptoExchangeRates.Quotes.Models
         {
             Action createCurrencyExchangeRate = () => CurrencyExchangeRate.Of(value);
 
-            createCurrencyExchangeRate.Should().ThrowExactly<DomainException>();
+            createCurrencyExchangeRate.Should().ThrowExactly<ArgumentException>();
         }
 
         [Fact]

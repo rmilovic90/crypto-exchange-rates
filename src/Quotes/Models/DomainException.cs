@@ -4,6 +4,11 @@ namespace CryptoExchangeRates.Quotes.Models
 {
     public sealed class DomainException : Exception
     {
-        public DomainException(string message) : base(message) { }
+        public DomainException(DomainErrors error, string message) : base(message)
+        {
+            Error = error;
+        }
+
+        public DomainErrors Error { get; }
     }
 }
