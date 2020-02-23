@@ -37,7 +37,7 @@ I had and I did. It was actually a Java project. I've used the [New Relic](https
 
 4. What was the latest technical book you have read or tech conference you have been to? What did you learn?
 
-It was the [Hands-On Domain-Driven Design with .NET Core](https://www.amazon.com/gp/product/1788834097/ref=dbs_a_def_rwt_bibl_vppi_i0) by Alexey Zimarev. I've learned how to apply **DDD**,**CQRS** and **EventSourcing** patterns using the latest versions of **C#** language and .**NET Core** framework. 
+It was the [Hands-On Domain-Driven Design with .NET Core](https://www.amazon.com/gp/product/1788834097/ref=dbs_a_def_rwt_bibl_vppi_i0) by Alexey Zimarev. I've learned how to apply **DDD**, **CQRS** and **EventSourcing** patterns using the latest versions of **C#** language and .**NET Core** framework. 
 As a bonus, I've learned how to implement this kind of architecture with the aid of variety modern tools and frameworks such as: **ASP .NET Core**, **EntityFramework Core**, **EventStore**,  **PostgreSQL**, **RavenDB** and **Docker**. 
 
 5. What do you think about this technical assessment?
@@ -85,7 +85,7 @@ I think that it could emphasize more on the **domain logic** and not the **integ
       "courage",
       "accountability",
       "modesty",
-	  "kindness",
+      "kindness",
       "independence"
     ]
   }
